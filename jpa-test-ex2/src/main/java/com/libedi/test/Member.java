@@ -20,7 +20,10 @@ public class Member {
 	@Column(name="ID")
 	private String id;
 	
-	@Column(name="USERNAME")
+	/*
+	 * 제약조건 추가 : 회원이름 필수, 10자 미초과
+	 */
+	@Column(name="NAME", nullable = false, length = 10)		// 추가
 	private String username;
 	
 	private Integer age;
