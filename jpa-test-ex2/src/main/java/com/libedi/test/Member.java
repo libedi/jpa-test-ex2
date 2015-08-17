@@ -11,19 +11,29 @@ import javax.persistence.Lob;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(name="MEMBER")
+@Table(name="MEMBER",
+		uniqueConstraints = {
+			@UniqueConstraint(		// 유니크 제약조건 추가
+				name = "NAME_AGE_UNIQUE",
+				columnNames = {"NAME", "AGE"}
+			)
+})
 public class Member {
 	
 	@Id
 	@Column(name="ID")
 	private String id;
 	
-	/*
-	 * 제약조건 추가 : 회원이름 필수, 10자 미초과
-	 */
-	@Column(name="NAME", nullable = false, length = 10)		// 추가
+//	/*
+//	 * 제약조건 추가 : 회원이름 필수, 10자 미초과
+//	 */
+//	@Column(name="NAME", nullable = false, length = 10)		// 추가
+//	private String username;
+	
+	@Column(name="NAME")
 	private String username;
 	
 	private Integer age;
