@@ -7,11 +7,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
 public class TestJpaEntity {
 	EntityManagerFactory emf;
+	EntityManager em;
+	EntityTransaction tx;
 	
 	@Before
 	public void setup(){
@@ -20,8 +23,8 @@ public class TestJpaEntity {
 	
 	@Test
 	public void testCreateEntity(){
-		EntityManager em = emf.createEntityManager();
-		EntityTransaction tx = em.getTransaction();
+		em = emf.createEntityManager();
+		tx = em.getTransaction();
 		tx.begin();
 		
 		Member member = new Member();
@@ -34,6 +37,24 @@ public class TestJpaEntity {
 		tx.commit();
 		
 		em.close();
+	}
+	
+	@Test
+	public void testStrategyIdentity(){
+		em = emf.createEntityManager();
+		tx = em.getTransaction();
+		tx.begin();
+		
+		Board board = new Board();
+		em.persist(board);
+		assertEquals(board.getId(), (long) 1);
+		
+		tx.commit();
+		em.close();
+	}
+	
+	@After
+	public void afterSetup(){
 		emf.close();
 	}
 

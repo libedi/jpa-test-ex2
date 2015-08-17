@@ -15,10 +15,11 @@
 			<property name="hibernate.show_sql" value="true"/>
 			<property name="hibernate.format_sql" value="true"/>
 			<property name="hibernate.use_sql_comments" value="true"/>
+			<!-- 키 자동 생성 전략 -->
 			<property name="hibernate.id.new_generator_mappings" value="true"/>
 			<!-- 스키마 자동생성 기능 -->
 			<!-- 애플리케이션 실행시점에 데이터베이스 테이블을 자동으로 생성 -->
-			<property name="hibernate.hbm2ddl.auto" value="create"/>
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create"/> -->
 			<!-- 이름 매핑 전략 변경 : 카멜표기법을 언더스코어 표기법으로 매핑 -->
 			<property name="hibernate.ejb.naming_strategy" value="org.hibernate.cfg.ImprovedNamingStrategy"/>
 		</properties>
