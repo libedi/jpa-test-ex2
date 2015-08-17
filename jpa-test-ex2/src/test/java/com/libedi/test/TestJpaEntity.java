@@ -21,7 +21,7 @@ public class TestJpaEntity {
 		emf = Persistence.createEntityManagerFactory("jpatest");
 	}
 	
-	@Test
+//	@Test
 	public void testCreateEntity(){
 		em = emf.createEntityManager();
 		tx = em.getTransaction();
@@ -39,7 +39,7 @@ public class TestJpaEntity {
 		em.close();
 	}
 	
-	//@Test
+//	@Test
 	public void testStrategyIdentity(){
 		em = emf.createEntityManager();
 		tx = em.getTransaction();
@@ -53,7 +53,7 @@ public class TestJpaEntity {
 		em.close();
 	}
 	
-	@Test
+//	@Test
 	public void testStrategySequence(){
 		em = emf.createEntityManager();
 		tx = em.getTransaction();
@@ -64,6 +64,20 @@ public class TestJpaEntity {
 		assertEquals(board.getId(), 1);
 		
 		tx.commit();		// INSERT SQL 실행
+		em.close();
+	}
+	
+	@Test
+	public void testStrategyTable(){
+		em = emf.createEntityManager();
+		tx = em.getTransaction();
+		tx.begin();
+		
+		Board board = new Board();
+		em.persist(board);
+		assertEquals(board.getId(), 1);
+		
+		tx.commit();
 		em.close();
 	}
 	
