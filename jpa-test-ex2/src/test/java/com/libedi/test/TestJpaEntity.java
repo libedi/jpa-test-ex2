@@ -39,17 +39,31 @@ public class TestJpaEntity {
 		em.close();
 	}
 	
-	@Test
+	//@Test
 	public void testStrategyIdentity(){
 		em = emf.createEntityManager();
 		tx = em.getTransaction();
 		tx.begin();
 		
 		Board board = new Board();
-		em.persist(board);
-		assertEquals(board.getId(), (long) 1);
+		em.persist(board);		// 이 시점에서 INSERT SQL 실행하여 ID를 가져온다.
+		assertEquals(board.getId(), 1);
 		
 		tx.commit();
+		em.close();
+	}
+	
+	@Test
+	public void testStrategySequence(){
+		em = emf.createEntityManager();
+		tx = em.getTransaction();
+		tx.begin();
+		
+		Board board = new Board();
+		em.persist(board);		// DB 시퀀스를 사용하여 ID조회. 조회한 ID를 엔티티에 할당하여 영속성 컨텍스트에 저장.
+		assertEquals(board.getId(), 1);
+		
+		tx.commit();		// INSERT SQL 실행
 		em.close();
 	}
 	
